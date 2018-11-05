@@ -59,13 +59,6 @@ function custom_excerpt_length($length) {
 add_filter('excerpt_length', 'custom_excerpt_length');
 
 
-// custom excerpt ellipses for 2.9+
-function custom_excerpt_more($more) {
-    return '...';
-}
-add_filter('excerpt_more', 'custom_excerpt_more');
-
-
 // custom excerpt ellipses for 2.8-
 function custom_excerpt_more($excerpt) {
 	return str_replace('[...]', '...', $excerpt);
@@ -92,15 +85,6 @@ function admin_favicon() {
     echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('template_directory').'/assets/images/favicon.png" />';
 }
 add_action('admin_head', 'admin_favicon');
-
-
-// custom admin login logo
-function custom_login_logo() {
-    echo '<style type="text/css">
-	h1 a { background-image: url('.get_bloginfo('template_directory').'/assets/images/custom-login-logo.png) !important; }
-	</style>';
-}
-add_action('login_head', 'custom_login_logo');
 
 
 // disable all widget areas
