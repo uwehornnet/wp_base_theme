@@ -1,0 +1,1 @@
+<?php wp_nav_menu( array( 'container' => 'ul', 'theme_location' => 'secondary', 'menu_class' => 'nav' ) ); ?>
