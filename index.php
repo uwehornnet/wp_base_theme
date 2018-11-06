@@ -12,11 +12,7 @@
 
     if ( have_posts() ): while ( have_posts() ) : the_post(); ?>
 
-<!--        --><?php // $url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' ); ?>
-<!--        style="background-image: url('--><?php //echo $url[0]; ?><!--')"-->
-
-        <?php the_title(); ?>
-        <?php the_content(); ?>
+        <?php get_template_part('./templates/post__format/' . strtolower( get_post_format_string( get_post_format()) )); ?>
 
     <?php endwhile; endif; wp_reset_query(); ?>
 

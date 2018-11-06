@@ -51,6 +51,8 @@ function add_google_analytics() {
 }
 add_action('wp_footer', 'add_google_analytics');
 
+// custom post formats
+add_theme_support( 'post-formats', array( 'image', 'gallery', 'video') );
 
 // custom excerpt length
 function custom_excerpt_length($length) {
@@ -120,6 +122,7 @@ function get_first_category_ID() {
     return $category[0]->cat_ID;
 }
 
+
 // rename Artikel
 // function revcon_change_post_label() {
 //     global $menu;
@@ -149,5 +152,11 @@ function get_first_category_ID() {
 //
 // add_action( 'admin_menu', 'revcon_change_post_label' );
 // add_action( 'init', 'revcon_change_post_object' );
+
+/*
+ * Custom functions
+ */
+
+
 
 ?>
