@@ -6,6 +6,7 @@
 
     <?php the_post_tags($post->id) ?>
     <?php the_post_categories(); ?>
+    <?php the_published_date(); ?>
 
     <?php the_content(); ?>
 

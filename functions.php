@@ -1,5 +1,12 @@
 <?php // custom functions.php template @ digwp.com
 
+
+// custom excerpt length in letters
+function excerpt_length()
+{
+    return 10;
+}
+
 add_theme_support( 'post-thumbnails' );
 
 register_nav_menus( array(
@@ -54,11 +61,7 @@ add_action('wp_footer', 'add_google_analytics');
 // custom post formats
 add_theme_support( 'post-formats', array( 'image', 'gallery', 'video') );
 
-// custom excerpt length
-function custom_excerpt_length($length) {
-    return 20;
-}
-add_filter('excerpt_length', 'custom_excerpt_length');
+
 
 
 // custom excerpt ellipses for 2.8-
@@ -163,6 +166,40 @@ function dd($data)
     die;
 }
 
+function the_custom_excerpt()
+{
+    global $post;
+    $count = excerpt_length();
+    preg_match("/(?:\w+(?:\W+|$)){0,$count}/", $post->post_content, $matches);
+
+    echo $matches[0] . ' ...';
+}
+
+
+function the_published_date()
+{
+    global $post;
+    $date = date('d m Y', strtotime($post->post_date));
+
+    $month = [
+        '01' => 'Januar',
+        '02' => 'Februar',
+        '03' => 'März',
+        '04' => 'April',
+        '05' => 'Mai',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'August',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Dezember',
+    ];
+
+    echo '<span class="post__published_at">' . explode(' ', $date)[0] . '. ' . $month[explode(' ', $date)[1]] . ' ' . explode(' ', $date)[2] . '</span>';
+
+}
+
 
 function the_post_categories()
 {
@@ -177,7 +214,7 @@ function the_post_categories()
 }
 
 
-function the_post_tags($post)
+function the_post_tags()
 {
     $tags = get_the_tags();
     if(!empty($tags))
@@ -187,7 +224,6 @@ function the_post_tags($post)
             echo '<span>' . ucfirst($tag->name) . '</span>';
         }
     }
-
 }
 
 ?>
