@@ -3,6 +3,10 @@
     <!--        --><?php // $url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' ); ?>
     <!--        style="background-image: url('--><?php //echo $url[0]; ?><!--')"-->
     <?php the_title(); ?>
+
+    <?php the_post_tags($post->id) ?>
+    <?php the_post_categories(); ?>
+
     <?php the_content(); ?>
 
 </div>

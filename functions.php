@@ -157,6 +157,37 @@ function get_first_category_ID() {
  * Custom functions
  */
 
+function dd($data)
+{
+    echo '<pre>' . var_export($data, true) . '</pre>';
+    die;
+}
 
+
+function the_post_categories()
+{
+    $categories = get_the_category();
+    if(!empty($categories))
+    {
+        foreach($categories as $category)
+        {
+            echo '<a href="' . esc_url(get_category_link( $category->term_id )) . '">' . ucfirst($category->name) . '</a>';
+        }
+    }
+}
+
+
+function the_post_tags($post)
+{
+    $tags = get_the_tags();
+    if(!empty($tags))
+    {
+        foreach( $tags as $tag )
+        {
+            echo '<span>' . ucfirst($tag->name) . '</span>';
+        }
+    }
+
+}
 
 ?>
