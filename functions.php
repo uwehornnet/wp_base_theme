@@ -1,5 +1,10 @@
 <?php // custom functions.php template @ digwp.com
 
+function dd($data)
+{
+    echo '<pre>' . var_export($data, true) . '</pre>';
+    die;
+}
 
 // custom excerpt length in letters
 function excerpt_length()
@@ -24,6 +29,12 @@ if (function_exists('automatic_feed_links')) {
 // jquery deactivation
  if (!is_admin()) {
  	wp_deregister_script('jquery');
+ }
+
+
+ // enqueue custom admin script
+ if(is_admin()) {
+     wp_enqueue_script( 'admin_script', get_template_directory_uri() . '/assets/js/admin.min.js', false, '1.0', true );
  }
 
 // enable threaded comments
@@ -59,7 +70,7 @@ function add_google_analytics() {
 add_action('wp_footer', 'add_google_analytics');
 
 // custom post formats
-add_theme_support( 'post-formats', array( 'image', 'gallery', 'video') );
+add_theme_support( 'post-formats', array( 'video') );
 
 
 
@@ -125,6 +136,39 @@ function get_first_category_ID() {
     return $category[0]->cat_ID;
 }
 
+/*
+ * add custom meta box video to posts
+ */
+
+function create_custom_video_box($post) {
+    ?>
+        <input type="text" id="custom_video_meta" name="custom_video_meta" placeholder="paste video url" value="<?php echo get_post_meta($post->ID, '_video_meta_key', true) ?>" style="width: 100%; display: block; padding: 7px">
+    <?php
+}
+
+function save_custom_video_meta($post_id) {
+    if( array_key_exists('custom_video_meta', $_POST) ) {
+        update_post_meta(
+            $post_id,
+            '_video_meta_key',
+            $_POST['custom_video_meta']
+        );
+    }
+}
+add_action('save_post', 'save_custom_video_meta');
+
+
+function add_video_meta_box() {
+    add_meta_box(
+        'post_video_meta',
+        'Video',
+        'create_custom_video_box',
+        'post'
+    );
+}
+add_action('add_meta_boxes', 'add_video_meta_box');
+
+
 
 // rename Artikel
 // function revcon_change_post_label() {
@@ -160,11 +204,6 @@ function get_first_category_ID() {
  * Custom functions
  */
 
-function dd($data)
-{
-    echo '<pre>' . var_export($data, true) . '</pre>';
-    die;
-}
 
 function the_custom_excerpt()
 {
@@ -225,5 +264,12 @@ function the_post_tags()
         }
     }
 }
+
+
+function the_video()
+{
+    return get_template_part('./templates/the__video');
+}
+
 
 ?>

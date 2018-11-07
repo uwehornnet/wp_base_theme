@@ -29,7 +29,8 @@ var mapURL       = './';
 
 var jsSRC        = './src/scripts/';
 var jsFront      = 'main.js';
-var jsFiles      = [ jsFront];
+var jsAdmin      = 'admin.js';
+var jsFiles      = [ jsFront, jsAdmin];
 var jsURL        = './assets/js/';
 
 var styleWatch   = './src/scss/**/*.scss';

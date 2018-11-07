@@ -29,7 +29,9 @@
 
     <title>Title</title>
 
-    <link rel="stylesheet" href="">
+    <?php wp_head(); ?>
+
+    <link rel="stylesheet" href="<?php bloginfo('template_url');?>">
 </head>
 <body>
 <header>
